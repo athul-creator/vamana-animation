@@ -1,0 +1,252 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapter 30 - Vamana</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        overflow: hidden;
+        background: #05000f;
+        height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Moving neon background */
+    .background {
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(circle at 20% 30%, #7b00ff55, transparent 30%),
+            radial-gradient(circle at 80% 70%, #00eaff55, transparent 30%),
+            radial-gradient(circle at 50% 50%, #ff00aa33, transparent 35%),
+            #05000f;
+        animation: backgroundMove 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes backgroundMove {
+        0% {
+            transform: scale(1);
+            filter: hue-rotate(0deg);
+        }
+        50% {
+            transform: scale(1.15);
+        }
+        100% {
+            transform: scale(1.05);
+            filter: hue-rotate(35deg);
+        }
+    }
+
+    /* Neon waves */
+    .wave {
+        position: absolute;
+        width: 160%;
+        height: 3px;
+        left: -30%;
+        border-radius: 50%;
+        filter: blur(2px);
+        animation: waveMove 5s linear infinite;
+    }
+
+    .wave:nth-child(1) {
+        top: 25%;
+        box-shadow:
+            0 0 10px #00eaff,
+            0 0 30px #00eaff,
+            0 0 70px #00eaff;
+        background: #00eaff;
+        transform: rotate(8deg);
+    }
+
+    .wave:nth-child(2) {
+        top: 45%;
+        box-shadow:
+            0 0 10px #ff00dd,
+            0 0 30px #ff00dd,
+            0 0 70px #ff00dd;
+        background: #ff00dd;
+        transform: rotate(-7deg);
+        animation-duration: 7s;
+    }
+
+    .wave:nth-child(3) {
+        top: 70%;
+        box-shadow:
+            0 0 10px #8a2bff,
+            0 0 30px #8a2bff,
+            0 0 70px #8a2bff;
+        background: #8a2bff;
+        transform: rotate(5deg);
+        animation-duration: 6s;
+    }
+
+    @keyframes waveMove {
+        0% {
+            margin-left: -10%;
+        }
+        50% {
+            margin-left: 10%;
+        }
+        100% {
+            margin-left: -10%;
+        }
+    }
+
+    /* Neon particles */
+    .particle {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        background: #ffffff;
+        border-radius: 50%;
+        box-shadow:
+            0 0 8px #fff,
+            0 0 18px #00eaff;
+        animation: float 4s infinite ease-in-out;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) scale(1);
+            opacity: 0.3;
+        }
+        50% {
+            transform: translateY(-80px) scale(1.8);
+            opacity: 1;
+        }
+    }
+
+    /* Title */
+    .title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        width: 90%;
+        text-align: center;
+
+        color: white;
+        font-size: clamp(35px, 6vw, 90px);
+        font-weight: 800;
+        letter-spacing: 3px;
+
+        text-shadow:
+            0 0 5px #fff,
+            0 0 15px #00eaff,
+            0 0 30px #00eaff,
+            0 0 60px #8a2bff;
+
+        animation:
+            titleGlow 2s ease-in-out infinite alternate,
+            titleEnter 2s ease-out;
+    }
+
+    @keyframes titleGlow {
+        from {
+            text-shadow:
+                0 0 5px #fff,
+                0 0 15px #00eaff,
+                0 0 30px #00eaff;
+        }
+
+        to {
+            text-shadow:
+                0 0 10px #fff,
+                0 0 25px #ff00dd,
+                0 0 50px #8a2bff,
+                0 0 90px #00eaff;
+        }
+    }
+
+    @keyframes titleEnter {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            filter: blur(15px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+            filter: blur(0);
+        }
+    }
+
+    /* Subtitle glow line */
+    .line {
+        position: absolute;
+        top: calc(50% + 85px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 55%;
+        height: 3px;
+
+        background: linear-gradient(
+            90deg,
+            transparent,
+            #00eaff,
+            #ff00dd,
+            #8a2bff,
+            transparent
+        );
+
+        box-shadow:
+            0 0 10px #00eaff,
+            0 0 25px #ff00dd;
+
+        animation: linePulse 2s infinite alternate;
+    }
+
+    @keyframes linePulse {
+        from {
+            opacity: 0.4;
+            transform: translateX(-50%) scaleX(0.7);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) scaleX(1);
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="background">
+
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+
+    <!-- Floating neon particles -->
+    <div class="particle" style="left:10%; top:20%; animation-delay:0s;"></div>
+    <div class="particle" style="left:20%; top:70%; animation-delay:1s;"></div>
+    <div class="particle" style="left:30%; top:35%; animation-delay:2s;"></div>
+    <div class="particle" style="left:40%; top:80%; animation-delay:.5s;"></div>
+    <div class="particle" style="left:55%; top:15%; animation-delay:1.5s;"></div>
+    <div class="particle" style="left:65%; top:65%; animation-delay:2.5s;"></div>
+    <div class="particle" style="left:75%; top:30%; animation-delay:.8s;"></div>
+    <div class="particle" style="left:85%; top:75%; animation-delay:1.8s;"></div>
+    <div class="particle" style="left:92%; top:40%; animation-delay:3s;"></div>
+
+</div>
+
+<div class="title">
+    Chapter 30: The Incarnation of Vamana
+</div>
+
+<div class="line"></div>
+
+</body>
+</html>
+```
